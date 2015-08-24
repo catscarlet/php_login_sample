@@ -30,7 +30,7 @@ echo '<!DOCTYPE html>
 </head>
 ';
 
-if (if_username_exist($username)) {
+if ($username == '' || if_username_exist($username)) {
     echo 'Your information is wrong , please check .';
 } else {
     $sql = "INSERT INTO userlist (`id`, `username`, `userpwd`, `usermail`, `description`) VALUES (NULL, '$username', '$userpwd', '$usermail', NULL)";
