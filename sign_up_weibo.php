@@ -1,10 +1,44 @@
 
 <?php
 
+$code = $_GET['code'];
+echo 'The code is '.$code.'<br><br>';
+//$url="https://api.weibo.com/oauth2/access_token?client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&grant_type=authorization_code&redirect_uri=YOUR_REGISTERED_REDIRECT_URI&code=CODE";
+$contents = http_post_data($url, '');
 
+$access_token = json_decode($contents);
+
+foreach ($access_token as $key => $value) {
+echo "The $key is .$value.<br>";
+}
+
+
+
+
+
+function http_post_data($url,$data){
+$ch = curl_init($url);
+
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+$response = curl_exec($ch);
+
+curl_close($ch);
+return $response;
+}
+
+
+
+
+
+
+/*
 $username = $_POST['username'];
 $userpwd = $_POST['userpwd'];
 $usermail = $_POST['usermail'];
+*/
 
 /* The name of the database */
 define('DB_NAME', 'php_login_sample');
@@ -15,6 +49,7 @@ define('DB_PASSWORD', 'test');
 /* MySQL database table */
 define('DB_TABLE', 'userlist');
 
+/*
 $con = mysql_connect('localhost', constant('DB_USER'), constant('DB_PASSWORD'));
 if (!$con) {
     die('Could not connect: '.mysql_error());
@@ -57,5 +92,5 @@ function if_username_exist($username)
         return false;
     }
 }
-
+*/
  ?>
