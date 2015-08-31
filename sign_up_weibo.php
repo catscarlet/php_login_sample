@@ -2,31 +2,38 @@
 <?php
 
 $code = $_GET['code'];
+$App_Key = '';
+$client_secret = '';
 echo 'The code is '.$code.'<br><br>';
-//$url="https://api.weibo.com/oauth2/access_token?client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&grant_type=authorization_code&redirect_uri=YOUR_REGISTERED_REDIRECT_URI&code=CODE";
-$contents = http_post_data($url, '');
+$url = "https://api.weibo.com/oauth2/access_token?client_id=$App_Key&client_secret=$client_secret&grant_type=authorization_code&redirect_uri=http://pi.catscarlet.com:8091/php_login_sample/sign_up_weibo.php&code=$code";
+//$url = urlencode($url);
+//echo $url.'<br>';
 
+$contents = http_post_data($url, ' ');
+//var_dump($contents);
 $access_token = json_decode($contents);
 
 foreach ($access_token as $key => $value) {
-echo "The $key is : $value <br>";
+    echo "The $key is \"$value\" <br>";
 }
 
 
 
 
 
-function http_post_data($url,$data){
-$ch = curl_init($url);
+function http_post_data($url, $data)
+{
+    $ch = curl_init($url);
 
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-$response = curl_exec($ch);
+    $response = curl_exec($ch);
 
-curl_close($ch);
-return $response;
+    curl_close($ch);
+
+    return $response;
 }
 
 
