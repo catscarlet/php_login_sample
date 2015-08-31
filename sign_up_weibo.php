@@ -9,7 +9,7 @@ $contents = http_post_data($url, '');
 $access_token = json_decode($contents);
 
 foreach ($access_token as $key => $value) {
-echo "The $key is .$value.<br>";
+echo "The $key is : $value <br>";
 }
 
 
